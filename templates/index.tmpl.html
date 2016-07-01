@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+      <meta charset="utf-8">
+      <title>Beat Along - Share your favorite music with your friends!</title>
+      <meta name="description" content="Beat Along - Share your favorite music with your friends!">
+      <meta name="keywords" content="beat, along, music, music shareing, social, friends">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href='https://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+      <link href='/assets/style.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1 class="center">Share your favorite music with your friends!</h1>
+      <% if error = env['x-rack.flash'].error %>
+        <div class="url-error"><%= error %></div>
+      <% end %>
+      <div class="form-wrapper">
+        <form action="/j" method="GET">
+          <input name="u" class="share-url" autofocus="autofocus" placeholder="Put your share url or search term here&hellip;" />
+          <input type="submit" class="share-btn" value="Share" />
+        </form>
+      </div>
+      <% unless recent_shares.empty? %>
+      <div class="additional-info">
+        <h3>Recently shared</h3>
+        <!-- <%= shared_count %> -->
+        <ul class="cf">
+          <% recent_shares.each do |entity| %>
+            <li class="small-entity">
+              <a href="/j?u=<%= CGI.escape entity.url %>"
+                 style="background-image: url('<%= entity.cover_image_url %>')"
+                 alt="Go to <%= entity.to_s %>" title="<%= entity.to_s %>">
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+      <div class="additional-info">
+        <h3>Supported services:</h3>
+        <ul class="logos cf">
+          <li><img src="/assets/itunes.jpg"  height="80" alt="iTunes" /></li>
+          <li><img src="/assets/spotify.jpg" height="80" alt="Spotify" /></li>
+          <li><img src="/assets/deezer.jpg"  height="80" alt="Deezer" /></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
