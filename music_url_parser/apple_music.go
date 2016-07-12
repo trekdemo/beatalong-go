@@ -17,19 +17,21 @@ var appleMusicsecondaryAttributes = utils.RegexpExtra{regexp.MustCompile(`(?i)i=
 func ParseAppleMusic(url string) (*utils.ResourceInfo, error) {
 	matches := appleMusicPrimaryAtributes.FindStringSubmatchMap(url)
 	secondaryMatches := appleMusicsecondaryAttributes.FindStringSubmatchMap(url)
-	var id string
+	var id, kind string
 
 	if secondaryMatches["id"] != "" {
 		id = secondaryMatches["id"]
+		kind = "song"
 	} else {
 		id = matches["id"]
+		kind = matches["kind"]
 	}
 
 	if id != "" {
 		return &utils.ResourceInfo{
 			Provider:    "AppleMusic",
 			ID:          id,
-			Kind:        matches["kind"],
+			Kind:        kind,
 			CountryCode: matches["country_code"],
 		}, nil
 	}

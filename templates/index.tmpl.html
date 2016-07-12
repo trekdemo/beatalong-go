@@ -12,31 +12,29 @@
   <body>
     <div class="wrapper">
       <h1 class="center">Share your favorite music with your friends!</h1>
-      <% if error = env['x-rack.flash'].error %>
-        <div class="url-error"><%= error %></div>
-      <% end %>
+      <div class="url-error">{{ "flash error" }}</div>
       <div class="form-wrapper">
         <form action="/j" method="GET">
           <input name="u" class="share-url" autofocus="autofocus" placeholder="Put your share url or search term here&hellip;" />
           <input type="submit" class="share-btn" value="Share" />
         </form>
       </div>
-      <% unless recent_shares.empty? %>
+
       <div class="additional-info">
         <h3>Recently shared</h3>
-        <!-- <%= shared_count %> -->
+        <!-- {{ "shared_count" }} -->
         <ul class="cf">
-          <% recent_shares.each do |entity| %>
+          {{ "each recent share" }}
             <li class="small-entity">
               <a href="/j?u=<%= CGI.escape entity.url %>"
                  style="background-image: url('<%= entity.cover_image_url %>')"
                  alt="Go to <%= entity.to_s %>" title="<%= entity.to_s %>">
               </a>
             </li>
-          <% end %>
+          {{ "end each recent share" }}
         </ul>
       </div>
-      <% end %>
+
       <div class="additional-info">
         <h3>Supported services:</h3>
         <ul class="logos cf">
